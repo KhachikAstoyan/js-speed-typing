@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing practice</title>
-  <link rel="stylesheet" href="static/styles/main.css">
-  <script defer type="module" src="./static/scripts/index.js"></script>
-</head>
-<body>
-  <header>
-    <div class="container">
-      <nav class="navbar">
-        <h2 class="logo">typo.io</h2>
-      </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing practice</title>
+    <link rel="stylesheet" href="static/styles/main.css" />
+    <link rel="shortcut icon" href="static/media/favicon.png" type="image/x-icon" />
+    <script defer type="module" src="./static/scripts/index.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <h2 class="logo">typo.io</h2>
+        </nav>
+      </div>
+    </header>
+
+    <div id="app">
+      <section class="typing-practice container">
+        <div id="words">Loading...</div>
+      </section>
     </div>
-  </header>
 
-  <div id="app">
-    <section class="typing-practice container">
-      <div id="words">Loading...</div>
-    </section>
-  </div>
-
-  <div class="stats">
-    <h2>Stats: </h2>
-    <p>Time elapsed: <span id="timeElapsed">-</span> seconds</p>
-    <p>Words per minute: <span id="wpm">-</span></p>
-    <p>Characters per minute: <span id="cpm">-</span></p>
-    <p>Incorrect letters: <span id="incor">-</span></p>
-    <p>Incorrect letters ratio: <span id="incorRatio">-</span></p>
-  </div>
-  
-</body>
+    <div class="stats">
+      <h2>Stats:</h2>
+      <p>Time elapsed: <span id="timeElapsed">-</span> seconds</p>
+      <p>Words per minute: <span id="wpm">-</span></p>
+      <p>Characters per minute: <span id="cpm">-</span></p>
+      <p>Incorrect letters: <span id="incor">-</span></p>
+      <p>Incorrect letters ratio: <span id="incorRatio">-</span></p>
+    </div>
+  </body>
 </html>
