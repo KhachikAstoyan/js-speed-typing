@@ -6,8 +6,8 @@ const wpmDisplayElement = document.getElementById('wpm');
 const cpmDisplayElement = document.getElementById('cpm');
 const incorDisplayElement = document.getElementById('incor');
 const incorRatioDisplayElement = document.getElementById('incorRatio');
+const overlayElement = document.querySelector('.overlay');
 let letterSpan = wordsDisplayElement.querySelectorAll('span');
-
 let index = 0;
 let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
   'Escape', 'AudioVolumeUp', 'AudioVolumeUp',
@@ -15,48 +15,66 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
   'Insert', 'Delete', 'Backspace', 'Enter', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'
 ];
 let charCount = 0;
-let wordCount = 25;
+let wordCount = 10;
 let incorrect = 0;
 let timeElapsed;
 let startTime = new Date();
+let wpm = 0;
+let cpm = 0;
 
 document.addEventListener('keydown', event => {
+  console.log(event);
 
-  if (!notChars.includes(event.key)) {
-    if (letterSpan[index].getAttribute('name') == event.key) {
-      letterSpan[index].classList.add('correct');
-      letterSpan[index].classList.remove('incorrect-temp');
-      letterSpan[index].classList.remove('focused');
-      index++;
-      if (index < letterSpan.length) {
-        letterSpan[index].classList.add('focused');
-      }
-    } else {
-      letterSpan[index].classList.add('incorrect');
-      letterSpan[index].classList.add('incorrect-temp');
-      incorrect++;
+  if (overlayElement.classList.contains('inactive')) {
+    if (event.code == 'Space') {
+      renderNewSentence();
+      document.getElementById('startHeading').remove();
+      overlayElement.classList.toggle('inactive');
+      setInterval(() => {
+        let endTime = new Date();
+        timeElapsed = (endTime - startTime) / 1000;
+        timeDisplayElement.innerText = Math.floor(timeElapsed);
+      }, 1000);
     }
-  }
-
-  if (index == letterSpan.length) {
-    index = 0;
-    wordsDisplayElement.innerHTML = 'Loading...';
-    let endTime = new Date();
-    timeElapsed = (endTime - startTime) / 1000;
-    let wpm = Math.round((60 * wordCount / timeElapsed));
-    let cpm = Math.round((60 * charCount / timeElapsed));
-    timeDisplayElement.innerText = timeElapsed;
-    wpmDisplayElement.innerText = wpm;
-    cpmDisplayElement.innerText = cpm;
+  } else {
     incorDisplayElement.innerText = incorrect;
     incorRatioDisplayElement.innerText = `${Math.round(((incorrect / charCount) * 100))}%`;
-    console.log(`Number of incorrect letters - ${incorrect}`);
-    console.log(`Number of characters: ${charCount}`);
-    console.log(`Elapsed time: ${timeElapsed} seconds`);
-    console.log(`WPM: ${wpm}`);
-    console.log(`Cpm: ${cpm}`);
-    renderNewSentence();
-    incorrect = 0;
+
+    if (!notChars.includes(event.key)) {
+      if (letterSpan[index].getAttribute('name') == event.key) {
+        letterSpan[index].remove();
+        // letterSpan[index].classList.add('correct');
+        // letterSpan[index].classList.remove('incorrect-temp');
+        // letterSpan[index].classList.remove('focused');
+        index++;
+        if (index < letterSpan.length) {
+          letterSpan[index].classList.add('focused');
+        }
+      } else {
+        letterSpan[index].classList.add('incorrect');
+        letterSpan[index].classList.add('incorrect-temp');
+        incorrect++;
+      }
+    }
+
+    if (index == letterSpan.length) {
+      index = 0;
+      wordsDisplayElement.innerHTML = 'Loading...';
+
+      wpm = (wpm + Math.round((60 * wordCount / timeElapsed))) / 2;
+      cpm = (cpm + Math.round((60 * charCount / timeElapsed))) / 2;
+      wpmDisplayElement.innerText = wpm;
+      cpmDisplayElement.innerText = cpm;
+
+      console.log(`Number of incorrect letters - ${incorrect}`);
+      console.log(`Number of characters: ${charCount}`);
+      console.log(`Elapsed time: ${timeElapsed} seconds`);
+      console.log(`WPM: ${wpm}`);
+      console.log(`Cpm: ${cpm}`);
+
+      renderNewSentence();
+      incorrect = 0;
+    }
   }
 });
 
@@ -74,17 +92,10 @@ const renderNewSentence = () => {
     word.split('').forEach(letter => {
       charCount++;
       let letterElement = document.createElement('span');
-      if (letter == ' ') {
-        letterElement.innerText = '_';
-        letterElement.setAttribute('name', ' ');
-      } else {
-        letterElement.innerText = letter;
-        letterElement.setAttribute('name', letter);
-      }
-
+      letterElement.innerText = letter;
+      letterElement.setAttribute('name', letter);
       wordElement.appendChild(letterElement);
     });
-
 
     if (sentence.indexOf(word) !== sentence.length - 1) {
       let spaceElement = document.createElement('span');
@@ -99,6 +110,3 @@ const renderNewSentence = () => {
   letterSpan = wordsDisplayElement.querySelectorAll('span');
   letterSpan[index].classList.add('focused');
 }
-
-
-renderNewSentence();
