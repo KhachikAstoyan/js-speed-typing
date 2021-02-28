@@ -15,7 +15,7 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
   'Insert', 'Delete', 'Backspace', 'Enter', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'
 ];
 let charCount = 0;
-let wordCount = 10;
+let wordCount = 20;
 let incorrect = 0;
 let timeElapsed;
 let startTime = new Date();
