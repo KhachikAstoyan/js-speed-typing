@@ -16,7 +16,7 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
 ];
 let score = 0;
 let charCount = 1;
-let wordCount = 10;
+let wordCount = 20;
 let incorrect = 0;
 let timeElapsed = 0;
 let startTime;
