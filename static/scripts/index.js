@@ -53,16 +53,13 @@ document.addEventListener('keydown', event => {
       if (letterSpan[index].getAttribute('name') == event.key) {
         charCount++;
         letterSpan[index].remove();
-        // letterSpan[index].classList.add('correct');
-        // letterSpan[index].classList.remove('incorrect-temp');
-        // letterSpan[index].classList.remove('focused');
         index++;
         if (index < letterSpan.length) {
           letterSpan[index].classList.add('focused');
         }
       } else {
         letterSpan[index].classList.add('incorrect');
-        score -= 10;
+        score -= 30;
         console.log(score);
         incorrect++;
       }
@@ -79,6 +76,7 @@ document.addEventListener('keydown', event => {
 
       renderNewSentence();
       incorrect = 0;
+      score = 0;
     }
   }
 });
