@@ -61,8 +61,8 @@ document.addEventListener('keydown', event => {
       index = 0;
       wordsDisplayElement.innerHTML = 'Loading...';
 
-      wpm = (wpm + Math.round((60 * wordCount / timeElapsed))) / 2;
-      cpm = (cpm + Math.round((60 * charCount / timeElapsed))) / 2;
+      wpm = Math.round((60 * wordCount / timeElapsed));
+      cpm = Math.round((60 * charCount / timeElapsed));
       wpmDisplayElement.innerText = wpm;
       cpmDisplayElement.innerText = cpm;
 
