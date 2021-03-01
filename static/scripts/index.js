@@ -16,7 +16,7 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
 ];
 let score = 0;
 let charCount = 1;
-let wordCount = 10;
+let wordCount = 20;
 let incorrect = 0;
 let timeElapsed = 0;
 let startTime;
@@ -59,7 +59,6 @@ document.addEventListener('keydown', event => {
         }
       } else {
         letterSpan[index].classList.add('incorrect');
-        score -= 30;
         console.log(score);
         incorrect++;
       }
@@ -69,14 +68,16 @@ document.addEventListener('keydown', event => {
       index = 0;
       wpm = Math.round((60 * wordCount / timeElapsed));
       cpm = Math.round((60 * charCount / timeElapsed));
-      score = score + wpm * 50;
+      console.log(`Old score is ${score}`);
+      score = score ? (score + (wpm * 50 - incorrect * 30)) / 2 : (wpm * 50 - incorrect * 30);
+      console.log(`New score is ${wpm * 50 - incorrect * 30}`);
+      console.log(`Combinded score is ${score}`);
       scoreElement.innerText = score;
       wpmDisplayElement.innerText = wpm;
       cpmDisplayElement.innerText = cpm;
 
       renderNewSentence();
       incorrect = 0;
-      score = 0;
     }
   }
 });
@@ -84,30 +85,21 @@ document.addEventListener('keydown', event => {
 const renderNewSentence = () => {
   startTime = new Date();
   charCount = 0;
-  let sentence = words(wordCount);
-  wordsDisplayElement.innerText = null;
+  let sentence = words(wordCount).join(' ').split('');
   console.log(sentence);
 
-  sentence.forEach(word => {
-    let wordElement = document.createElement('p');
-    wordElement.classList.add('word');
-
-    word.split('').forEach(letter => {
-      let letterElement = document.createElement('span');
+  sentence.forEach(letter => {
+    let letterElement = document.createElement('span');
+    if (letter === ' ') {
+      letterElement.innerText = '_';
+      letterElement.setAttribute('name', ' ');
+    } else {
       letterElement.innerText = letter;
-      letterElement.setAttribute('name', letter);
-      wordElement.appendChild(letterElement);
-    });
-
-    if (sentence.indexOf(word) !== sentence.length - 1) {
-      let spaceElement = document.createElement('span');
-      spaceElement.innerText = '_';
-      spaceElement.setAttribute('name', ' ');
-      wordElement.appendChild(spaceElement);
+      letterElement.setAttribute('name', letter)
     }
 
-    wordsDisplayElement.appendChild(wordElement);
-  });
+    wordsDisplayElement.appendChild(letterElement);
+  })
 
   letterSpan = wordsDisplayElement.querySelectorAll('span');
   letterSpan[index].classList.add('focused');
