@@ -3,107 +3,97 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Ubuntu Mono", "Lucida console", monospace;
-}
+  font-family: "Ubuntu Mono", "Lucida console", monospace; }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
   background-color: #f1f1f1;
-}
+  transition: background-color 300ms ease-in; }
 
 header {
-  position: absolute;
-  top: 0;
   width: 100%;
   height: 3rem;
   background-color: black;
-  color: white;
-}
-header .navbar .logo {
-  line-height: 3rem;
-  text-align: center;
-}
+  color: white; }
+  header .navbar .logo {
+    line-height: 3rem;
+    text-align: center; }
 
 .container {
   margin: 0 auto;
   width: 1200px;
-  max-width: 90%;
-}
+  max-width: 90%; }
+
+#app-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 3rem);
+  position: relative; }
 
 #app h2 {
-  text-align: center;
-}
+  text-align: center; }
 #app .typing-practice {
-  position: relative;
-}
-#app .typing-practice .overlay {
-  background: transparent;
-  background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
-  background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-}
-#app .typing-practice .overlay.inactive {
-  background: #f1f1f1;
-  opacity: 0.9;
-}
-#app .typing-practice #words {
-  font-size: 5rem;
-  max-width: 100%;
-  overflow: hidden;
-}
-#app .typing-practice #words p {
-  display: inline;
-}
-#app .typing-practice #words span {
-  display: inline;
-  margin-bottom: 5px;
-}
-#app .typing-practice #words .focused {
-  background-color: black;
-  color: white;
-  animation-duration: 500m;
-  animation-name: cursor;
-  animation-iteration-count: infinite;
-  animation-timing-function: step-end;
-  transition: none;
-}
-#app .typing-practice #words .focused.white {
-  background-color: white;
-  color: back;
-}
-#app .typing-practice #words .correct {
-  color: #cecece;
-}
-#app .typing-practice #words .incorrect {
-  color: red;
-}
-#app .typing-practice #words .incorrect-temp {
-  background-color: red;
-  color: white;
-}
+  position: relative; }
+  #app .typing-practice .overlay {
+    background: transparent;
+    background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
+    background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; }
+    #app .typing-practice .overlay.inactive {
+      background: #f1f1f1;
+      opacity: 0.9; }
+  #app .typing-practice #words {
+    font-size: 4.5rem;
+    max-width: 100%;
+    overflow: hidden; }
+    #app .typing-practice #words p {
+      display: inline; }
+    #app .typing-practice #words span {
+      display: inline; }
+    #app .typing-practice #words .focused {
+      background-color: black;
+      color: white;
+      animation-duration: 500m;
+      animation-name: cursor;
+      animation-iteration-count: infinite;
+      animation-timing-function: step-end;
+      transition: none; }
+      #app .typing-practice #words .focused.white {
+        background-color: white;
+        color: back; }
+    #app .typing-practice #words .correct {
+      color: #cecece; }
+    #app .typing-practice #words .incorrect-temp {
+      background-color: #ff000d;
+      color: white; }
 
 .stats {
   position: absolute;
-  top: 0;
-  left: 0;
-  background-color: black;
+  top: 20px;
+  left: 20px;
+  background-color: white;
   color: white;
-  padding: 20px;
-}
-.stats h2 {
-  margin-bottom: 10px;
-}
-.stats span {
-  color: #498ddb;
-}
+  padding: 30px;
+  border-radius: 25px;
+  border: 2px solid #ebebeb; }
+  .stats * {
+    color: black; }
+  .stats h2 {
+    margin-bottom: 10px; }
+  .stats h3 {
+    font-size: 1.3em; }
+  .stats p {
+    color: black;
+    font-size: 1.2em; }
+  .stats span {
+    color: #498ddb;
+    font-weight: bold; }
 
 /*# sourceMappingURL=main.css.map */

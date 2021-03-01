@@ -16,9 +16,9 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
 ];
 let score = 0;
 let charCount = 1;
-let wordCount = 20;
-let incorrect = 0;
+let wordCount = 10;
 let timeElapsed = 0;
+let incorrect = 0;
 let startTime;
 let wpm = 0;
 let cpm = 0;
@@ -58,7 +58,7 @@ document.addEventListener('keydown', event => {
           letterSpan[index].classList.add('focused');
         }
       } else {
-        letterSpan[index].classList.add('incorrect');
+        letterSpan[index].classList.add('incorrect-temp');
         console.log(score);
         incorrect++;
       }
