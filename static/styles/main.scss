@@ -4,7 +4,7 @@ $bg-color: #f1f1f1;
 $header-height: 3rem;
 $main-ui-blue: rgb(73, 141, 219);
 $hacker-ui-color: rgb(60, 255, 0);
-$transition-speed: 100ms;
+$transition-speed: 200ms;
 $incorrect-color: rgb(255, 0, 13);
 
 $dark-bg: rgb(3, 3, 3);
@@ -35,7 +35,7 @@ body {
     .settings,
     .stats {
       background-color: black;
-      border: 1px solid rgb(5, 5, 5);
+      border-color: rgb(5, 5, 5);
       * {
         color: white;
       }
@@ -48,9 +48,13 @@ body {
     #app {
       .typing-practice {
         .overlay {
-          background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $dark-bg 100%);
-          background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $dark-bg 100%);
-          background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $dark-bg 100%);
+          background-color: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $dark-bg 100%);
+          background-color: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $dark-bg 100%);
+          background-color: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $dark-bg 100%);
+
+          &.inactive {
+            background-color: $dark-bg;
+          }
         }
 
         #words {
@@ -109,11 +113,11 @@ header {
     position: relative;
 
     .overlay {
-      background: transparent;
-      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $bg-color 100%);
-      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $bg-color 100%);
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $bg-color 100%);
-      transition: background $transition-speed ease-in;
+      background-color: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $bg-color 100%);
+      background-color: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $bg-color 100%);
+      background-color: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, $bg-color 100%);
+      background-color: transparent;
+      transition: background-color $transition-speed ease-in;
       width: 100%;
       height: 100%;
       position: absolute;
@@ -123,7 +127,7 @@ header {
       opacity: 0.95;
 
       &.inactive {
-        background: $bg-color;
+        background-color: $bg-color;
         opacity: 0.7;
       }
     }
@@ -177,6 +181,7 @@ header {
   border-radius: 25px;
   border: 1px solid rgb(235, 235, 235);
   letter-spacing: 0px;
+  transition: background-color $transition-speed ease-in, border-color $transition-speed ease-in;
 
   #focus {
     width: 0;
@@ -186,6 +191,7 @@ header {
 
   * {
     color: black;
+    transition: color $transition-speed ease-in;
   }
 
   h2 {

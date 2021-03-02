@@ -6,12 +6,12 @@
   font-family: "Ubuntu Mono", "Lucida console", monospace; }
 
 h2 {
-  transition: color 100ms ease-in; }
+  transition: color 200ms ease-in; }
 
 body {
   min-height: 100vh;
   background: #f1f1f1;
-  transition: background 100ms ease-in; }
+  transition: background 200ms ease-in; }
   body.dark {
     background-color: #030303; }
     body.dark #startHeading {
@@ -19,7 +19,7 @@ body {
     body.dark .settings,
     body.dark .stats {
       background-color: black;
-      border: 1px solid #050505; }
+      border-color: #050505; }
       body.dark .settings *,
       body.dark .stats * {
         color: white; }
@@ -27,9 +27,11 @@ body {
       body.dark .stats span {
         color: #3cff00; }
     body.dark #app .typing-practice .overlay {
-      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%);
-      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%);
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%); }
+      background-color: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%);
+      background-color: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%);
+      background-color: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%); }
+      body.dark #app .typing-practice .overlay.inactive {
+        background-color: #030303; }
     body.dark #app .typing-practice #words span {
       color: #3cff00; }
       body.dark #app .typing-practice #words span.focused {
@@ -65,11 +67,11 @@ header {
 #app .typing-practice {
   position: relative; }
   #app .typing-practice .overlay {
-    background: transparent;
-    background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
-    background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
-    transition: background 100ms ease-in;
+    background-color: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
+    background-color: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
+    background-color: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f1f1f1 100%);
+    background-color: transparent;
+    transition: background-color 200ms ease-in;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -78,7 +80,7 @@ header {
     z-index: 2;
     opacity: 0.95; }
     #app .typing-practice .overlay.inactive {
-      background: #f1f1f1;
+      background-color: #f1f1f1;
       opacity: 0.7; }
   #app .typing-practice #words {
     font-size: 4.5rem;
@@ -91,7 +93,7 @@ header {
       display: inline; }
     #app .typing-practice #words span {
       display: inline;
-      transition: color 100ms ease-in; }
+      transition: color 200ms ease-in; }
     #app .typing-practice #words .focused {
       background-color: black;
       color: white;
@@ -113,7 +115,8 @@ header {
   padding: 30px;
   border-radius: 25px;
   border: 1px solid #ebebeb;
-  letter-spacing: 0px; }
+  letter-spacing: 0px;
+  transition: background-color 200ms ease-in, border-color 200ms ease-in; }
   .settings #focus,
   .stats #focus {
     width: 0;
@@ -121,7 +124,8 @@ header {
     opacity: 0; }
   .settings *,
   .stats * {
-    color: black; }
+    color: black;
+    transition: color 200ms ease-in; }
   .settings h2,
   .stats h2 {
     margin-bottom: 10px; }
