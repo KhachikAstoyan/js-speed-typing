@@ -7,6 +7,7 @@ const wpmDisplayElement = document.getElementById('wpm');
 const cpmDisplayElement = document.getElementById('cpm');
 const incorDisplayElement = document.getElementById('incor');
 const overlayElement = document.querySelector('.overlay');
+// const darkModeCheck = document.getElementById('hacker');
 let letterSpan = wordsDisplayElement.querySelectorAll('span');
 let index = 0;
 let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
@@ -16,7 +17,7 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
 ];
 let score = 0;
 let charCount = 1;
-let wordCount = 10;
+let wordCount = 15;
 let timeElapsed = 0;
 let incorrect = 0;
 let startTime;
@@ -59,7 +60,6 @@ document.addEventListener('keydown', event => {
         }
       } else {
         letterSpan[index].classList.add('incorrect-temp');
-        console.log(score);
         incorrect++;
       }
     }
@@ -69,7 +69,7 @@ document.addEventListener('keydown', event => {
       wpm = Math.round((60 * wordCount / timeElapsed));
       cpm = Math.round((60 * charCount / timeElapsed));
       console.log(`Old score is ${score}`);
-      score = score ? (score + (wpm * 50 - incorrect * 30)) / 2 : (wpm * 50 - incorrect * 30);
+      score = score ? Math.floor((score + (wpm * 50 - incorrect * 30)) / 2) : (wpm * 50 - incorrect * 30);
       console.log(`New score is ${wpm * 50 - incorrect * 30}`);
       console.log(`Combinded score is ${score}`);
       scoreElement.innerText = score;
