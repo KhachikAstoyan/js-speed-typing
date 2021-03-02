@@ -38,9 +38,9 @@ darkModeCheck.addEventListener("change", event => {
   document.getElementsByTagName("BODY")[0].classList.toggle('dark');
 
   if (darkModeCheck.checked) {
-    document.cookie = `theme: dark`;
+    document.cookie = `theme: dark; secure`;
   } else {
-    document.cookie = `theme: light`;
+    document.cookie = `theme: light; secure`;
   }
 })
 
