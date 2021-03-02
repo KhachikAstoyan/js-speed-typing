@@ -1,5 +1,6 @@
 import words from './word-generator.js'
 
+const body = document.getElementsByTagName("BODY")[0];
 const wordsDisplayElement = document.getElementById('words');
 const scoreElement = document.getElementById('score');
 const timeDisplayElement = document.getElementById('timeElapsed');
@@ -24,23 +25,22 @@ let startTime;
 let wpm = 0;
 let cpm = 0;
 let timer;
+let localStorage = window.localStorage;
 
-try {
-  let theme = document.cookie.split(';')[2].split(':')[1].trim();
-  if (theme == 'dark') {
-    darkModeCheck.checked = true;
-  }
-  document.getElementsByTagName("BODY")[0].classList.toggle(theme);
-} catch { }
+let theme = localStorage.getItem("theme");
+body.classList.toggle(theme);
+if (theme === "dark") {
+  darkModeCheck.checked = true;
+}
 
 darkModeCheck.addEventListener("change", event => {
   document.getElementById('focus').focus();
   document.getElementsByTagName("BODY")[0].classList.toggle('dark');
 
   if (darkModeCheck.checked) {
-    document.cookie = `theme: dark; secure`;
+    localStorage.setItem("theme", "dark");
   } else {
-    document.cookie = `theme: light; secure`;
+    localStorage.setItem("theme", "light");
   }
 })
 
