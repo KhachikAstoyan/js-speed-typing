@@ -7,7 +7,7 @@ const wpmDisplayElement = document.getElementById('wpm');
 const cpmDisplayElement = document.getElementById('cpm');
 const incorDisplayElement = document.getElementById('incor');
 const overlayElement = document.querySelector('.overlay');
-// const darkModeCheck = document.getElementById('hacker');
+const darkModeCheck = document.getElementById('hacker');
 let letterSpan = wordsDisplayElement.querySelectorAll('span');
 let index = 0;
 let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
@@ -24,6 +24,25 @@ let startTime;
 let wpm = 0;
 let cpm = 0;
 let timer;
+
+try {
+  let theme = document.cookie.split(';')[2].split(':')[1].trim();
+  if (theme == 'dark') {
+    darkModeCheck.checked = true;
+  }
+  document.getElementsByTagName("BODY")[0].classList.toggle(theme);
+} catch { }
+
+darkModeCheck.addEventListener("change", event => {
+  document.getElementById('focus').focus();
+  document.getElementsByTagName("BODY")[0].classList.toggle('dark');
+
+  if (darkModeCheck.checked) {
+    document.cookie = `theme: dark`;
+  } else {
+    document.cookie = `theme: light`;
+  }
+})
 
 document.addEventListener('keydown', event => {
 

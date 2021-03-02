@@ -12,6 +12,32 @@ body {
   min-height: 100vh;
   background: #f1f1f1;
   transition: background 100ms ease-in; }
+  body.dark {
+    background-color: #030303; }
+    body.dark #startHeading {
+      color: white; }
+    body.dark .settings,
+    body.dark .stats {
+      background-color: black;
+      border: 1px solid #050505; }
+      body.dark .settings *,
+      body.dark .stats * {
+        color: white; }
+      body.dark .settings span,
+      body.dark .stats span {
+        color: #3cff00; }
+    body.dark #app .typing-practice .overlay {
+      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%);
+      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #030303 100%); }
+    body.dark #app .typing-practice #words span {
+      color: #3cff00; }
+      body.dark #app .typing-practice #words span.focused {
+        background-color: white;
+        color: black; }
+        body.dark #app .typing-practice #words span.focused.incorrect-temp {
+          background-color: #ff000d;
+          color: white; }
 
 header {
   width: 100%;
@@ -49,7 +75,8 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2; }
+    z-index: 2;
+    opacity: 0.95; }
     #app .typing-practice .overlay.inactive {
       background: #f1f1f1;
       opacity: 0.7; }
@@ -87,6 +114,11 @@ header {
   border-radius: 25px;
   border: 1px solid #ebebeb;
   letter-spacing: 0px; }
+  .settings #focus,
+  .stats #focus {
+    width: 0;
+    height: 0;
+    opacity: 0; }
   .settings *,
   .stats * {
     color: black; }
