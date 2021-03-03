@@ -9,6 +9,7 @@ const cpmDisplayElement = document.getElementById('cpm');
 const incorDisplayElement = document.getElementById('incor');
 const overlayElement = document.querySelector('.overlay');
 const darkModeCheck = document.getElementById('hacker');
+const wordCountSlider = document.getElementById('wordArrayLength');
 let letterSpan = wordsDisplayElement.querySelectorAll('span');
 let index = 0;
 let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
@@ -16,18 +17,30 @@ let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
   'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
   'Insert', 'Delete', 'Backspace', 'Enter', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'
 ];
-let score = 0;
 let charCount = 1;
-let wordCount = 15;
 let timeElapsed = 0;
 let incorrect = 0;
 let startTime;
-let wpm = 0;
-let cpm = 0;
 let timer;
-let localStorage = window.localStorage;
 
+// getting data from localstorage
+let localStorage = window.localStorage;
 let theme = localStorage.getItem("theme");
+let score = localStorage.getItem("score");
+let wpm = localStorage.getItem("wpm");
+let cpm = localStorage.getItem("cpm");
+let wordCount = localStorage.getItem("wordCount");
+
+score = score ? parseInt(score) : 0;
+wpm = wpm ? parseInt(wpm) : 0;
+cpm = cpm ? parseInt(cpm) : 0;
+wordCount = wordCount ? parseInt(wordCount) : 10;
+
+scoreElement.innerText = score;
+wpmDisplayElement.innerText = wpm;
+cpmDisplayElement.innerText = cpm;
+wordCountSlider.setAttribute('value', `${wordCount}`);
+
 body.classList.toggle(theme);
 if (theme === "dark") {
   darkModeCheck.checked = true;
@@ -35,12 +48,21 @@ if (theme === "dark") {
 
 darkModeCheck.addEventListener("change", event => {
   document.getElementById('focus').focus();
-  document.getElementsByTagName("BODY")[0].classList.toggle('dark');
+  body.classList.toggle('dark');
 
   if (darkModeCheck.checked) {
     localStorage.setItem("theme", "dark");
   } else {
     localStorage.setItem("theme", "light");
+  }
+})
+
+wordCountSlider.addEventListener("change", event => {
+  wordCount = parseInt(wordCountSlider.value);
+  localStorage.setItem("wordCount", `${wordCount}`);
+  index = 0;
+  if (!overlayElement.classList.contains('inactive')) {
+    renderNewSentence();
   }
 })
 
@@ -87,10 +109,12 @@ document.addEventListener('keydown', event => {
       index = 0;
       wpm = Math.round((60 * wordCount / timeElapsed));
       cpm = Math.round((60 * charCount / timeElapsed));
-      console.log(`Old score is ${score}`);
       score = score ? Math.floor((score + (wpm * 50 - incorrect * 30)) / 2) : (wpm * 50 - incorrect * 30);
-      console.log(`New score is ${wpm * 50 - incorrect * 30}`);
-      console.log(`Combinded score is ${score}`);
+
+      localStorage.setItem("score", `${score}`);
+      localStorage.setItem("wpm", `${wpm}`);
+      localStorage.setItem("cpm", `${cpm}`);
+
       scoreElement.innerText = score;
       wpmDisplayElement.innerText = wpm;
       cpmDisplayElement.innerText = cpm;
@@ -102,6 +126,7 @@ document.addEventListener('keydown', event => {
 });
 
 const renderNewSentence = () => {
+  wordsDisplayElement.innerHTML = null;
   startTime = new Date();
   charCount = 0;
   let sentence = words(wordCount).join(' ').split('');
@@ -116,7 +141,6 @@ const renderNewSentence = () => {
       letterElement.innerText = letter;
       letterElement.setAttribute('name', letter)
     }
-
     wordsDisplayElement.appendChild(letterElement);
   })
 

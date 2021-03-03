@@ -22,7 +22,7 @@
       <div class="stats">
         <h2>Stats:</h2>
         <h3>Score: <span id="score">0</span></h3>
-        <p>Time elapsed: <span id="timeElapsed">-</span> seconds</p>
+        <p>Time elapsed: <span id="timeElapsed">0</span> seconds</p>
         <p>Words per minute: <span id="wpm">0</span></p>
         <p>Characters per minute: <span id="cpm">0</span></p>
         <p>Incorrect letters: <span id="incor">0</span></p>
@@ -32,9 +32,13 @@
         <h2>Settings</h2>
         <ul>
           <li>
-            <label for="s2">Hacker mode</label>
+            <label for="hacker">Hacker mode</label>
             <input id="hacker" type="checkbox" class="switch">
             <input type="text" width="0" height="0" id="focus">
+          </li>
+          <li>
+            <label for="wordArrayLength">Words:</label>
+            <input id="wordArrayLength" type="range" min="5" max="50" class="slider" id="myRange">
           </li>
         </ul>
       </div>
