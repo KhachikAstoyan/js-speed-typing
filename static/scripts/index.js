@@ -22,6 +22,7 @@ let timeElapsed = 0;
 let incorrect = 0;
 let startTime;
 let timer;
+let incorrectRatio;
 
 // getting data from localstorage
 let localStorage = window.localStorage;
@@ -109,7 +110,9 @@ document.addEventListener('keydown', event => {
       index = 0;
       wpm = Math.round((60 * wordCount / timeElapsed));
       cpm = Math.round((60 * charCount / timeElapsed));
-      score = score ? Math.floor((score + (wpm * 50 - incorrect * 30)) / 2) : (wpm * 50 - incorrect * 30);
+      incorrectRatio = incorrect / charCount * 100;
+      console.log(`Incorrect ratio is ${incorrectRatio}`);
+      score = score ? Math.floor((score + (wpm * 50 - incorrectRatio * 40)) / 2) : (wpm * 50 - incorrect * 30);
 
       localStorage.setItem("score", `${score}`);
       localStorage.setItem("wpm", `${wpm}`);
