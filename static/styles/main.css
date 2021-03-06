@@ -6,6 +6,29 @@
   box-sizing: border-box;
   font-family: "Ubuntu Mono", "Lucida console", monospace; }
 
+input[type="range"] {
+  -webkit-appearance: none;
+  /* Hides the slider so that custom slider can be made */
+  width: 50%;
+  /* Specific width is required for Firefox. */
+  background: transparent;
+  /* Otherwise white in Chrome */ }
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; }
+
+input[type="range"]:focus {
+  outline: none;
+  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent; }
+
 h2 {
   transition: color 80ms ease-in; }
 
@@ -49,190 +72,253 @@ header {
   width: 100%;
   height: 3rem;
   background-color: black;
-  color: white;
   border-bottom: 1px solid transparent;
+  color: white;
+  text-align: center;
   transition: border-color 80ms ease-in; }
   header .navbar .logo {
-    line-height: 3rem;
-    text-align: center; }
-
-.container {
-  margin: 0 auto;
-  width: 900px;
-  max-width: 90%; }
+    line-height: 3rem; }
 
 #app-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
   height: calc(100vh - 3rem);
-  position: relative; }
+  gap: 20px; }
 
-#app h2 {
-  text-align: center; }
-#app .typing-practice {
-  position: relative; }
-  #app .typing-practice .overlay {
-    background: transparent;
-    background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f8f8f8 100%);
-    background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f8f8f8 100%);
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f8f8f8 100%);
-    transition: background 80ms ease-in;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    opacity: 0.95; }
-    #app .typing-practice .overlay.inactive {
-      background-color: #f8f8f8;
-      opacity: 0.7; }
-  #app .typing-practice #words {
-    font-size: 3.5rem;
-    max-width: 100%;
-    overflow: hidden; }
-    #app .typing-practice #words .start {
-      text-align: center;
-      z-index: 10; }
-    #app .typing-practice #words p {
-      display: inline; }
-    #app .typing-practice #words span {
-      display: inline;
-      transition: color 80ms ease-in; }
-    #app .typing-practice #words .focused {
-      background-color: black;
-      color: white;
-      animation-duration: 500m;
-      animation-name: cursor;
-      animation-iteration-count: infinite;
-      animation-timing-function: step-end;
-      transition: none; }
-    #app .typing-practice #words .correct {
-      color: #cecece; }
-    #app .typing-practice #words .incorrect-temp {
-      background-color: #ff000d;
-      color: white; }
-
-.settings,
-.stats {
+.stats,
+.settings {
   background-color: white;
-  color: white;
   padding: 30px;
-  height: 100%;
-  border: 1px solid #ebebeb;
-  border-top: none;
-  border-bottom: none;
+  border-right: 1px solid #ebebeb;
   letter-spacing: 0px;
   transition: background-color 80ms ease-in, border-color 80ms ease-in; }
-  .settings #focus,
-  .stats #focus {
+  .stats #focus,
+  .settings #focus {
     width: 0;
     height: 0;
     opacity: 0; }
-  .settings *,
-  .stats * {
+  .stats *,
+  .settings * {
     color: black;
     transition: color 80ms ease-in;
     font-family: "Roboto Mono", monospace;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: -0.2px; }
-  .settings h2,
-  .stats h2 {
+  .stats h2,
+  .settings h2 {
     margin-bottom: 10px;
     font-weight: 600;
     font-size: 1.3em; }
-  .settings p,
-  .stats p {
+  .stats p,
+  .settings p {
     color: black; }
-  .settings span,
-  .stats span {
+  .stats span,
+  .settings span {
     color: #498ddb;
     font-weight: bold; }
 
-.settings {
-  position: absolute;
-  top: 0px;
-  right: 0px; }
-  .settings ul {
-    list-style: none; }
-  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    .settings input[type="checkbox"] {
-      --active: #275efe;
-      --active-inner: #fff;
-      --focus: 2px rgba(39, 94, 254, 0.3);
-      --border: #bbc1e1;
-      --border-hover: #275efe;
-      --background: #fff;
-      --disabled: #f6f8ff;
-      --disabled-inner: #e1e6f9;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      height: 21px;
-      outline: none;
+.settings ul {
+  list-style: none; }
+  .settings ul li {
+    display: flex; }
+    .settings ul li label {
+      margin-right: 10px; }
+  .settings ul #wordArrayLength {
+    -webkit-appearance: none;
+    width: 50%; }
+  .settings ul #wordArrayLength:focus {
+    outline: none; }
+  .settings ul #wordArrayLength::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: #cfd3d6;
+    transition: background 80ms ease-in;
+    border-radius: 5px; }
+  .settings ul #wordArrayLength::-webkit-slider-thumb {
+    margin-top: -3px;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: #498ddb;
+    cursor: pointer;
+    -webkit-appearance: none; }
+  .settings ul #wordArrayLength:focus::-webkit-slider-runnable-track {
+    background: #acbece; }
+  .settings ul #wordArrayLength::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #3071a9;
+    border-radius: 1.3px;
+    border: 0.2px solid #010101; }
+  .settings ul #wordArrayLength::-moz-range-thumb {
+    border: 1px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer; }
+  .settings ul #wordArrayLength::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent; }
+  .settings ul #wordArrayLength::-ms-fill-lower {
+    background: #2a6495;
+    border: 0.2px solid #010101;
+    border-radius: 2.6px; }
+  .settings ul #wordArrayLength::-ms-fill-upper {
+    background: #3071a9;
+    border: 0.2px solid #010101;
+    border-radius: 2.6px; }
+  .settings ul #wordArrayLength::-ms-thumb {
+    border: 1px solid #000000;
+    height: 36px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer; }
+  .settings ul #wordArrayLength:focus::-ms-fill-lower {
+    background: #3071a9; }
+  .settings ul #wordArrayLength:focus::-ms-fill-upper {
+    background: #367ebd; }
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  .settings input[type="checkbox"] {
+    --active: #275efe;
+    --active-inner: #fff;
+    --focus: 2px rgba(39, 94, 254, 0.3);
+    --border: #bbc1e1;
+    --border-hover: #275efe;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s; }
+    .settings input[type="checkbox"]:after {
+      content: "";
+      display: block;
+      left: 0;
+      top: 0;
+      position: absolute;
+      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s); }
+    .settings input[type="checkbox"]:checked {
+      --b: var(--active);
+      --bc: var(--active);
+      --d-o: 0.3s;
+      --d-t: 0.6s;
+      --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2); }
+    .settings input[type="checkbox"]:hover:not(:checked):not(:disabled) {
+      --bc: var(--border-hover); }
+    .settings input[type="checkbox"]:focus {
+      box-shadow: 0 0 0 var(--focus); }
+    .settings input[type="checkbox"] + label {
+      font-size: 14px;
+      line-height: 21px;
       display: inline-block;
       vertical-align: top;
-      position: relative;
-      margin: 0;
       cursor: pointer;
-      border: 1px solid var(--bc, var(--border));
-      background: var(--b, var(--background));
-      transition: background 0.3s, border-color 0.3s, box-shadow 0.2s; }
-      .settings input[type="checkbox"]:after {
-        content: "";
-        display: block;
-        left: 0;
-        top: 0;
-        position: absolute;
-        transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s); }
-      .settings input[type="checkbox"]:checked {
-        --b: var(--active);
-        --bc: var(--active);
-        --d-o: 0.3s;
-        --d-t: 0.6s;
-        --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2); }
-      .settings input[type="checkbox"]:hover:not(:checked):not(:disabled) {
-        --bc: var(--border-hover); }
-      .settings input[type="checkbox"]:focus {
-        box-shadow: 0 0 0 var(--focus); }
-      .settings input[type="checkbox"] + label {
-        font-size: 14px;
-        line-height: 21px;
-        display: inline-block;
-        vertical-align: top;
-        cursor: pointer;
-        margin-left: 4px; }
-    .settings input[type="checkbox"].switch {
-      width: 38px;
-      border-radius: 11px; }
-      .settings input[type="checkbox"].switch:after {
-        left: 2px;
-        top: 2px;
-        border-radius: 50%;
-        width: 15px;
-        height: 15px;
-        background: var(--ab, var(--border));
-        transform: translateX(var(--x, 0)); }
-      .settings input[type="checkbox"].switch:checked {
-        --ab: var(--active-inner);
-        --x: 17px; }
-      .settings input[type="checkbox"].switch:disabled:not(:checked):after {
-        opacity: 0.6; }
-    .settings input[type="radio"] {
-      border-radius: 50%; }
-      .settings input[type="radio"]:after {
-        width: 19px;
-        height: 19px;
-        border-radius: 50%;
-        background: var(--active-inner);
-        opacity: 0;
-        transform: scale(var(--s, 0.7)); }
-      .settings input[type="radio"]:checked {
-        --s: 0.5; } }
+      margin-left: 4px; }
+  .settings input[type="checkbox"].switch {
+    width: 38px;
+    border-radius: 11px; }
+    .settings input[type="checkbox"].switch:after {
+      left: 2px;
+      top: 2px;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      background: var(--ab, var(--border));
+      transform: translateX(var(--x, 0)); }
+    .settings input[type="checkbox"].switch:checked {
+      --ab: var(--active-inner);
+      --x: 17px; }
+    .settings input[type="checkbox"].switch:disabled:not(:checked):after {
+      opacity: 0.6; }
+  .settings input[type="radio"] {
+    border-radius: 50%; }
+    .settings input[type="radio"]:after {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: var(--active-inner);
+      opacity: 0;
+      transform: scale(var(--s, 0.7)); }
+    .settings input[type="radio"]:checked {
+      --s: 0.5; } }
 
-.stats {
-  position: absolute;
-  top: 0px;
-  left: 0px; }
+#app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden; }
+  #app h2 {
+    text-align: center; }
+  #app .typing-practice {
+    position: relative;
+    max-width: 100%; }
+    #app .typing-practice .overlay {
+      background: transparent;
+      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f8f8f8 100%);
+      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f8f8f8 100%);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #f8f8f8 100%);
+      transition: background 80ms ease-in;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      opacity: 0.95; }
+      #app .typing-practice .overlay.inactive {
+        background-color: #f8f8f8;
+        opacity: 0.7; }
+    #app .typing-practice #words {
+      font-size: 3.5rem;
+      max-width: 100%;
+      overflow: hidden; }
+      #app .typing-practice #words .start {
+        text-align: center;
+        z-index: 10; }
+      #app .typing-practice #words p {
+        display: inline; }
+      #app .typing-practice #words span {
+        display: inline;
+        transition: color 80ms ease-in; }
+      #app .typing-practice #words .focused {
+        background-color: black;
+        color: white;
+        animation-duration: 500m;
+        animation-name: cursor;
+        animation-iteration-count: infinite;
+        animation-timing-function: step-end;
+        transition: none; }
+      #app .typing-practice #words .correct {
+        color: #cecece; }
+      #app .typing-practice #words .incorrect-temp {
+        background-color: #ff000d;
+        color: white; }
+
+@media (max-width: 1350px) {
+  .stats *,
+  .settings * {
+    font-size: 12px; } }
+@media (max-width: 1000px) {
+  .stats,
+  .settings {
+    grid-column: 1 / 2; } }
 
 /*# sourceMappingURL=main.css.map */
