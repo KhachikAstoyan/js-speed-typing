@@ -74,11 +74,6 @@ document.addEventListener('keydown', event => {
       renderNewSentence();
       document.getElementById('startHeading').innerText = 'Press ESC to quit';
       overlayElement.classList.toggle('inactive');
-      timer = setInterval(() => {
-        let endTime = new Date();
-        timeElapsed = (endTime - startTime) / 1000;
-        timeDisplayElement.innerText = Math.floor(timeElapsed);
-      }, 1000);
     }
   } else {
     incorDisplayElement.innerText = incorrect;
@@ -93,6 +88,15 @@ document.addEventListener('keydown', event => {
     }
 
     if (!notChars.includes(event.key)) {
+      if (index === 0) { // the game starts only when the user presses a character key for the first time
+        startTime = new Date();
+        timer = setInterval(() => {
+          let endTime = new Date();
+          timeElapsed = (endTime - startTime) / 1000;
+          timeDisplayElement.innerText = Math.floor(timeElapsed);
+        }, 1000);
+      }
+
       if (letterSpan[index].getAttribute('name') == event.key) {
         charCount++;
         letterSpan[index].remove();
@@ -111,7 +115,6 @@ document.addEventListener('keydown', event => {
       wpm = Math.round((60 * wordCount / timeElapsed));
       cpm = Math.round((60 * charCount / timeElapsed));
       incorrectRatio = incorrect / charCount * 100;
-      console.log(`Incorrect ratio is ${incorrectRatio}`);
       score = score ? Math.floor((score + (wpm * 50 - incorrectRatio * 40)) / 2) : (wpm * 50 - incorrect * 30);
 
       localStorage.setItem("score", `${score}`);
@@ -121,6 +124,10 @@ document.addEventListener('keydown', event => {
       scoreElement.innerText = score;
       wpmDisplayElement.innerText = wpm;
       cpmDisplayElement.innerText = cpm;
+
+      clearInterval(timer);
+      timeElapsed = 0;
+      timeDisplayElement.innerText = timeElapsed;
 
       renderNewSentence();
       incorrect = 0;
@@ -133,7 +140,6 @@ const renderNewSentence = () => {
   startTime = new Date();
   charCount = 0;
   let sentence = words(wordCount).join(' ').split('');
-  console.log(sentence);
 
   sentence.forEach(letter => {
     let letterElement = document.createElement('span');
