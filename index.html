@@ -26,6 +26,21 @@
         <p>Words per minute: <span id="wpm">0</span></p>
         <p>Characters per minute: <span id="cpm">0</span></p>
         <p>Incorrect letters: <span id="incor">0</span></p>
+
+        <div class="settings">
+          <h2>Settings</h2>
+          <ul>
+            <li>
+              <label for="hacker">Hacker mode</label>
+              <input id="hacker" type="checkbox" class="switch">
+              <input type="text" width="0" height="0" id="focus">
+            </li>
+            <li>
+              <label for="wordArrayLength">Word count:</label>
+              <input id="wordArrayLength" type="range" min="5" max="50" class="slider" id="myRange">
+            </li>
+          </ul>
+        </div>
       </div>
     
       <div id="app">
@@ -35,22 +50,10 @@
           <div id="words">
           </div>
         </section>
+        <h2 id="progress" style="display: none;"><span id="remainingWords"></span> words</h2>
       </div>
     
-      <div class="settings">
-        <h2>Settings</h2>
-        <ul>
-          <li>
-            <label for="hacker">Hacker mode</label>
-            <input id="hacker" type="checkbox" class="switch">
-            <input type="text" width="0" height="0" id="focus">
-          </li>
-          <li>
-            <label for="wordArrayLength">Word count:</label>
-            <input id="wordArrayLength" type="range" min="5" max="50" class="slider" id="myRange">
-          </li>
-        </ul>
-      </div>
+      
 
     
   </body>

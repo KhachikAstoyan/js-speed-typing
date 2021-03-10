@@ -10,6 +10,9 @@ const incorDisplayElement = document.getElementById('incor');
 const overlayElement = document.querySelector('.overlay');
 const darkModeCheck = document.getElementById('hacker');
 const wordCountSlider = document.getElementById('wordArrayLength');
+const progressDisplayElement = document.getElementById('progress');
+const remainingDisplayElement = document.getElementById('remainingWords');
+
 let letterSpan = wordsDisplayElement.querySelectorAll('span');
 let index = 0;
 let notChars = ['Shift', 'Control', 'Meta', 'CapsLock', 'Tab',
@@ -23,6 +26,7 @@ let incorrect = 0;
 let startTime;
 let timer;
 let incorrectRatio;
+let remaining;
 
 // getting data from localstorage
 let localStorage = window.localStorage;
@@ -36,6 +40,7 @@ score = score ? parseInt(score) : 0;
 wpm = wpm ? parseInt(wpm) : 0;
 cpm = cpm ? parseInt(cpm) : 0;
 wordCount = wordCount ? parseInt(wordCount) : 10;
+remaining = wordCount;
 
 scoreElement.innerText = score;
 wpmDisplayElement.innerText = wpm;
@@ -62,6 +67,7 @@ wordCountSlider.addEventListener("change", event => {
   wordCount = parseInt(wordCountSlider.value);
   localStorage.setItem("wordCount", `${wordCount}`);
   index = 0;
+  remainingDisplayElement.innerText = wordCount;
   if (!overlayElement.classList.contains('inactive')) {
     renderNewSentence();
   }
@@ -74,6 +80,8 @@ document.addEventListener('keydown', event => {
       renderNewSentence();
       document.getElementById('startHeading').innerText = 'Press ESC to quit';
       overlayElement.classList.toggle('inactive');
+      progressDisplayElement.style.display = 'block';
+      remainingDisplayElement.innerText = wordCount;
     }
   } else {
     incorDisplayElement.innerText = incorrect;
@@ -82,6 +90,7 @@ document.addEventListener('keydown', event => {
       document.getElementById('startHeading').innerText = 'Press space to start';
       wordsDisplayElement.innerHTML = null;
       overlayElement.classList.toggle('inactive');
+      progressDisplayElement.style.display = 'none';
       clearInterval(timer);
       index = 0;
       timeDisplayElement.innerText = 0;
@@ -98,6 +107,10 @@ document.addEventListener('keydown', event => {
       }
 
       if (letterSpan[index].getAttribute('name') == event.key) {
+        if (event.code == 'Space') {
+          remaining--;
+          remainingDisplayElement.innerText = remaining;
+        }
         charCount++;
         letterSpan[index].remove();
         index++;
@@ -155,4 +168,6 @@ const renderNewSentence = () => {
 
   letterSpan = wordsDisplayElement.querySelectorAll('span');
   letterSpan[index].classList.add('focused');
+  remaining = wordCount;
+  remainingDisplayElement.innerHTML = remaining;
 }

@@ -55,11 +55,11 @@ body {
   &.dark {
     background-color: $dark-bg;
 
-    #startHeading {
+    #startHeading,
+    #progress {
       color: white;
     }
 
-    .settings,
     .stats,
     header {
       background-color: black;
@@ -69,7 +69,7 @@ body {
       }
 
       span {
-        color: $hacker-ui-color;
+        color: $main-ui-blue;
       }
     }
 
@@ -108,10 +108,11 @@ body {
 header {
   width: 100%;
   height: 3rem;
-  background-color: black;
+  background-color: white;
   border-bottom: 1px solid transparent;
-  color: white;
+  color: black;
   text-align: center;
+  border-bottom: 1px solid $light-border-color;
   transition: border-color $transition-speed ease-in;
 
   .navbar {
@@ -126,6 +127,16 @@ header {
   grid-template-columns: 1fr 3fr 1fr;
   height: calc(100vh - 3rem);
   gap: 20px;
+}
+
+#progress {
+  margin-top: 5px;
+  font-size: 20px;
+
+  span {
+    font-weight: bold;
+    color: $main-ui-blue;
+  }
 }
 
 .stats,
@@ -172,6 +183,10 @@ header {
 }
 
 .settings {
+  border: none;
+  margin-top: 40px;
+  padding: 0;
+  background: transparent;
   ul {
     list-style: none;
 
@@ -428,6 +443,11 @@ header {
         animation-iteration-count: infinite;
         animation-timing-function: step-end;
         transition: none;
+
+        &.white {
+          background-color: white;
+          color: black;
+        }
       }
 
       .correct {
@@ -452,8 +472,7 @@ header {
 }
 
 @media (max-width: 1000px) {
-  .stats,
-  .settings {
+  .stats {
     grid-column: 1 / 2;
   }
 }
